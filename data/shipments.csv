@@ -1,0 +1,5 @@
+shipment_id,supplier_id,product_id,quantity,expected_date,status
+SH001,S001,P001,100,2026-09-08,In Transit
+SH002,S002,P002,80,2026-09-07,In Transit
+SH003,S003,P003,150,2026-09-06,In Transit
+SH004,S004,P004,60,2026-09-09,In Transit

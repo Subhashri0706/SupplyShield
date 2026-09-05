@@ -1,0 +1,5 @@
+supplier_id,supplier_name,product_id,product_name,normal_lead_days
+S001,Alpha Electronics,P001,Wireless Mouse,5
+S002,TechSource,P002,Mechanical Keyboard,7
+S003,Global Gadgets,P003,USB-C Cable,4
+S004,Smart Devices,P004,Webcam,6

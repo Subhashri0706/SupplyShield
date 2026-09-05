@@ -1,0 +1,8 @@
+order_id,customer,product_id,quantity,required_date,priority
+O001,ABC Retail,P001,50,2026-09-09,High
+O002,XYZ Stores,P001,30,2026-09-10,Medium
+O003,City Mart,P002,40,2026-09-08,High
+O004,Quick Shop,P003,80,2026-09-07,High
+O005,Metro Retail,P004,20,2026-09-11,Medium
+O006,Super Store,P002,25,2026-09-12,Low
+O007,Digital World,P001,40,2026-09-12,Medium

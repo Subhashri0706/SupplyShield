@@ -1,0 +1,7 @@
+warehouse_id,product_id,product_name,stock_units,reorder_level
+W001,P001,Wireless Mouse,120,40
+W001,P002,Mechanical Keyboard,65,30
+W001,P003,USB-C Cable,200,60
+W002,P001,Wireless Mouse,45,40
+W002,P002,Mechanical Keyboard,80,30
+W002,P004,Webcam,25,20

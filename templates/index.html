@@ -1,0 +1,1524 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SupplyShield | Supply Chain Intelligence</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f5f7fb;
+            color: #172033;
+        }
+
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: linear-gradient(135deg, #111827, #1e3a8a);
+            color: white;
+            padding: 20px 5%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 23px;
+        }
+
+        .brand h1 {
+            font-size: 23px;
+            letter-spacing: 0.3px;
+        }
+
+        .brand p {
+            font-size: 12px;
+            color: #cbd5e1;
+            margin-top: 3px;
+        }
+
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.1);
+            padding: 9px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: #22c55e;
+            border-radius: 50%;
+        }
+
+        /* =========================
+           MAIN
+        ========================= */
+
+        .container {
+            width: 92%;
+            max-width: 1250px;
+            margin: 32px auto 60px;
+        }
+
+        /* =========================
+           PAGE INTRO
+        ========================= */
+
+        .intro {
+            margin-bottom: 22px;
+        }
+
+        .intro h2 {
+            font-size: 26px;
+            color: #111827;
+        }
+
+        .intro p {
+            margin-top: 6px;
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        /* =========================
+           INPUT
+        ========================= */
+
+        .input-box {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 6px 20px rgba(15,23,42,0.06);
+        }
+
+        .input-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .input-header h3 {
+            font-size: 17px;
+        }
+
+        .ai-badge {
+            background: #eef2ff;
+            color: #4338ca;
+            padding: 6px 11px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 15px;
+            border: 1px solid #dbe1ea;
+            border-radius: 10px;
+            resize: vertical;
+            font-size: 14px;
+            outline: none;
+            transition: 0.2s;
+            color: #334155;
+        }
+
+        textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.1);
+        }
+
+        .analyze-row {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        button {
+            margin-top: 14px;
+            padding: 12px 23px;
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: white;
+            border: none;
+            border-radius: 9px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(37,99,235,0.25);
+        }
+
+        #loading {
+            display: none;
+            margin-top: 14px;
+            color: #4f46e5;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        #error {
+            color: #dc2626;
+            margin-top: 12px;
+            font-size: 13px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           DASHBOARD
+        ========================= */
+
+        #dashboard {
+            display: none;
+            margin-top: 28px;
+        }
+
+        /* =========================
+           RISK BANNER
+        ========================= */
+
+        .risk-banner {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 18px 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+            box-shadow: 0 5px 16px rgba(15,23,42,0.05);
+        }
+
+        .risk-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .risk-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 11px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            background: #fff7ed;
+        }
+
+        .risk-left h3 {
+            font-size: 15px;
+        }
+
+        .risk-left p {
+            margin-top: 4px;
+            font-size: 12px;
+            color: #64748b;
+        }
+
+        .risk-pill {
+            padding: 7px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* =========================
+           KPI CARDS
+        ========================= */
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 5px 16px rgba(15,23,42,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+        }
+
+        .blue {
+            background: #eff6ff;
+        }
+
+        .orange {
+            background: #fff7ed;
+        }
+
+        .red {
+            background: #fef2f2;
+        }
+
+        .green {
+            background: #f0fdf4;
+        }
+
+        .card h4 {
+            margin-top: 15px;
+            font-size: 12px;
+            color: #64748b;
+            font-weight: normal;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .card-number {
+            margin-top: 5px;
+            font-size: 27px;
+            font-weight: bold;
+            color: #111827;
+        }
+
+        /* =========================
+           SECTIONS
+        ========================= */
+
+        .section {
+            background: white;
+            padding: 23px;
+            margin-bottom: 18px;
+            border-radius: 14px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 5px 16px rgba(15,23,42,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 18px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title span {
+            font-size: 19px;
+        }
+
+        .section h2 {
+            font-size: 16px;
+            color: #111827;
+        }
+
+        .section-subtitle {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* =========================
+           TWO COLUMN
+        ========================= */
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        /* =========================
+           DETAIL LIST
+        ========================= */
+
+        .detail-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .detail-item {
+            background: #f8fafc;
+            padding: 13px;
+            border-radius: 9px;
+        }
+
+        .detail-item span {
+            display: block;
+            font-size: 11px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        .detail-item strong {
+            font-size: 13px;
+            color: #1e293b;
+        }
+
+        /* =========================
+           TABLE
+        ========================= */
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+            padding: 12px;
+            font-size: 11px;
+            color: #64748b;
+            background: #f8fafc;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+
+        td {
+            padding: 13px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid #eef2f7;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .priority {
+            padding: 5px 9px;
+            border-radius: 15px;
+            font-size: 11px;
+            font-weight: bold;
+        }
+
+        .priority-high {
+            background: #fef2f2;
+            color: #dc2626;
+        }
+
+        .priority-medium {
+            background: #fff7ed;
+            color: #c2410c;
+        }
+
+        .priority-low {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        .at-risk {
+            color: #dc2626;
+            font-weight: bold;
+        }
+
+        .covered {
+            color: #16a34a;
+            font-weight: bold;
+        }
+
+        /* =========================
+           RECOMMENDATION
+        ========================= */
+
+        .recommendation-box {
+            background: linear-gradient(
+                135deg,
+                #eef2ff,
+                #f8fafc
+            );
+            border: 1px solid #c7d2fe;
+            border-radius: 12px;
+            padding: 20px;
+        }
+
+        .recommendation-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .robot {
+            width: 38px;
+            height: 38px;
+            background: #4f46e5;
+            color: white;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+        }
+
+        .recommendation-header h3 {
+            font-size: 15px;
+        }
+
+        .recommendation-header p {
+            color: #64748b;
+            font-size: 11px;
+            margin-top: 3px;
+        }
+
+        #recommendation {
+            white-space: pre-line;
+            font-size: 13px;
+            line-height: 1.7;
+            color: #334155;
+            background: white;
+            border-radius: 9px;
+            padding: 16px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            text-align: center;
+            color: #94a3b8;
+            font-size: 11px;
+            padding: 10px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            header {
+                padding: 16px 20px;
+            }
+
+            .status {
+                display: none;
+            }
+
+            .container {
+                width: 94%;
+                margin-top: 22px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-list {
+                grid-template-columns: 1fr;
+            }
+
+            .risk-banner {
+                align-items: flex-start;
+                gap: 12px;
+                flex-direction: column;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header>
+
+    <div class="brand">
+
+        <div class="logo">
+            🛡️
+        </div>
+
+        <div>
+
+            <h1>SupplyShield</h1>
+
+            <p>
+                AI-Powered Supply Chain Disruption Intelligence
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="status">
+
+        <div class="status-dot"></div>
+
+        System Online
+
+    </div>
+
+</header>
+
+
+<div class="container">
+
+
+    <!-- =========================
+         INTRO
+    ========================= -->
+
+    <div class="intro">
+
+        <h2>Disruption Command Center</h2>
+
+        <p>
+            Analyze supplier disruptions and understand their impact
+            on inventory, shipments and customer orders.
+        </p>
+
+    </div>
+
+
+    <!-- =========================
+         INPUT
+    ========================= -->
+
+    <div class="input-box">
+
+        <div class="input-header">
+
+            <h3>📨 Disruption Notice</h3>
+
+            <div class="ai-badge">
+                ✨ Gemini AI
+            </div>
+
+        </div>
+
+
+        <textarea
+            id="notice"
+            placeholder="Paste a supplier email, carrier delay, warehouse incident or other disruption notice here..."
+        ></textarea>
+
+
+        <div class="analyze-row">
+
+            <button onclick="analyzeDisruption()">
+                ✨ Analyze Disruption
+            </button>
+
+        </div>
+
+
+        <div id="loading">
+            ⏳ AI is analyzing the disruption and tracing its impact...
+        </div>
+
+
+        <div id="error"></div>
+
+    </div>
+
+
+    <!-- =========================
+         DASHBOARD
+    ========================= -->
+
+    <div id="dashboard">
+
+
+        <!-- RISK STATUS -->
+
+        <div class="risk-banner">
+
+            <div class="risk-left">
+
+                <div class="risk-icon">
+                    🚨
+                </div>
+
+                <div>
+
+                    <h3>
+                        Supply Chain Risk Assessment
+                    </h3>
+
+                    <p>
+                        Based on current inventory, shipment and order data
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="riskPill"
+                class="risk-pill"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <!-- KPI CARDS -->
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="card-top">
+
+                    <h4>Impact Level</h4>
+
+                    <div class="card-icon orange">
+                        🚨
+                    </div>
+
+                </div>
+
+                <div
+                    id="impactLevel"
+                    class="card-number"
+                >
+                    -
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+
+                    <h4>Orders at Risk</h4>
+
+                    <div class="card-icon red">
+                        📦
+                    </div>
+
+                </div>
+
+                <div
+                    id="ordersRisk"
+                    class="card-number"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+
+                    <h4>Available Stock</h4>
+
+                    <div class="card-icon blue">
+                        🏭
+                    </div>
+
+                </div>
+
+                <div
+                    id="stock"
+                    class="card-number"
+                >
+                    0
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-top">
+
+                    <h4>Total Shortage</h4>
+
+                    <div class="card-icon green">
+                        📉
+                    </div>
+
+                </div>
+
+                <div
+                    id="shortage"
+                    class="card-number"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             DISRUPTION + INVENTORY
+        ========================= -->
+
+        <div class="two-column">
+
+
+            <!-- DISRUPTION -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <div class="section-title">
+
+                        <span>🚚</span>
+
+                        <h2>Disruption Overview</h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-list">
+
+
+                    <div class="detail-item">
+
+                        <span>Supplier</span>
+
+                        <strong id="supplier">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Product</span>
+
+                        <strong id="product">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Shipment</span>
+
+                        <strong id="shipment">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Delay</span>
+
+                        <strong id="delay">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Expected Arrival</span>
+
+                        <strong id="expectedArrival">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Delayed Arrival</span>
+
+                        <strong id="delayedArrival">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- INVENTORY -->
+
+            <div class="section">
+
+                <div class="section-header">
+
+                    <div class="section-title">
+
+                        <span>📦</span>
+
+                        <h2>Inventory Impact</h2>
+
+                    </div>
+
+                </div>
+
+
+                <div class="detail-list">
+
+
+                    <div class="detail-item">
+
+                        <span>Total Stock</span>
+
+                        <strong id="totalStock">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Customer Demand</span>
+
+                        <strong id="totalOrdered">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Remaining Stock</span>
+
+                        <strong id="remainingStock">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                    <div class="detail-item">
+
+                        <span>Delayed Shipment</span>
+
+                        <strong id="shipmentQuantity">
+                            -
+                        </strong>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =========================
+             AFFECTED ORDERS
+        ========================= -->
+
+        <div class="section">
+
+            <div class="section-header">
+
+                <div class="section-title">
+
+                    <span>⚠️</span>
+
+                    <h2>Affected Customer Orders</h2>
+
+                </div>
+
+                <div class="section-subtitle">
+                    Prioritized by urgency
+                </div>
+
+            </div>
+
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Order</th>
+
+                            <th>Customer</th>
+
+                            <th>Quantity</th>
+
+                            <th>Required Date</th>
+
+                            <th>Priority</th>
+
+                            <th>Status</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody id="ordersTable">
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             AI RECOMMENDATION
+        ========================= -->
+
+        <div class="section">
+
+            <div class="recommendation-box">
+
+                <div class="recommendation-header">
+
+                    <div class="robot">
+                        🤖
+                    </div>
+
+                    <div>
+
+                        <h3>
+                            AI Response Recommendation
+                        </h3>
+
+                        <p>
+                            Generated from the disruption and supply-chain data
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div id="recommendation">
+                    -
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <footer>
+
+        SupplyShield • Supply Chain Disruption Response Assistant
+
+    </footer>
+
+
+</div>
+
+
+
+<script>
+
+
+async function analyzeDisruption() {
+
+
+    const notice =
+        document.getElementById("notice").value;
+
+
+    const loading =
+        document.getElementById("loading");
+
+
+    const dashboard =
+        document.getElementById("dashboard");
+
+
+    const errorBox =
+        document.getElementById("error");
+
+
+    if (!notice.trim()) {
+
+        errorBox.textContent =
+            "Please enter a disruption notice.";
+
+        return;
+
+    }
+
+
+    loading.style.display = "block";
+
+    dashboard.style.display = "none";
+
+    errorBox.textContent = "";
+
+
+    try {
+
+
+        const formData =
+            new FormData();
+
+
+        formData.append(
+            "notice",
+            notice
+        );
+
+
+        const response =
+            await fetch(
+                "/analyze",
+                {
+                    method: "POST",
+                    body: formData
+                }
+            );
+
+
+        const data =
+            await response.json();
+
+
+        if (data.error) {
+
+            throw new Error(
+                data.error
+            );
+
+        }
+
+
+        if (data.message) {
+
+            errorBox.textContent =
+                data.message;
+
+            loading.style.display =
+                "none";
+
+            return;
+
+        }
+
+
+        displayResults(data);
+
+
+        dashboard.style.display =
+            "block";
+
+
+    }
+
+    catch (error) {
+
+        errorBox.textContent =
+            "Error: " + error.message;
+
+    }
+
+
+    loading.style.display =
+        "none";
+
+}
+
+
+
+function displayResults(data) {
+
+
+    const impact =
+        data.impact;
+
+
+    const extracted =
+        data.extracted_information;
+
+
+    /* =========================
+       RISK
+    ========================= */
+
+    const impactLevel =
+        document.getElementById(
+            "impactLevel"
+        );
+
+
+    const riskPill =
+        document.getElementById(
+            "riskPill"
+        );
+
+
+    impactLevel.textContent =
+        impact.impact_level;
+
+
+    riskPill.textContent =
+        impact.impact_level +
+        " RISK";
+
+
+    riskPill.style.background =
+        "#eff6ff";
+
+    riskPill.style.color =
+        "#2563eb";
+
+
+    if (
+        impact.impact_level === "High"
+    ) {
+
+        riskPill.style.background =
+            "#fef2f2";
+
+        riskPill.style.color =
+            "#dc2626";
+
+    }
+
+    else if (
+        impact.impact_level === "Medium"
+    ) {
+
+        riskPill.style.background =
+            "#fff7ed";
+
+        riskPill.style.color =
+            "#c2410c";
+
+    }
+
+    else {
+
+        riskPill.style.background =
+            "#f0fdf4";
+
+        riskPill.style.color =
+            "#16a34a";
+
+    }
+
+
+    /* =========================
+       KPI
+    ========================= */
+
+    document.getElementById(
+        "ordersRisk"
+    ).textContent =
+        impact.orders_at_risk;
+
+
+    document.getElementById(
+        "stock"
+    ).textContent =
+        impact.total_stock;
+
+
+    document.getElementById(
+        "shortage"
+    ).textContent =
+        impact.total_shortage;
+
+
+    /* =========================
+       SUPPLIER
+    ========================= */
+
+    const supplierName =
+        data.supplier.length > 0
+        ? data.supplier[0].supplier_name
+        : extracted.supplier_id || "-";
+
+
+    const productName =
+        data.supplier.length > 0
+        ? data.supplier[0].product_name
+        : extracted.product_id || "-";
+
+
+    document.getElementById(
+        "supplier"
+    ).textContent =
+        supplierName;
+
+
+    document.getElementById(
+        "product"
+    ).textContent =
+        productName;
+
+
+    document.getElementById(
+        "shipment"
+    ).textContent =
+        extracted.shipment_id || "-";
+
+
+    document.getElementById(
+        "expectedArrival"
+    ).textContent =
+        impact.expected_arrival;
+
+
+    document.getElementById(
+        "delayedArrival"
+    ).textContent =
+        impact.delayed_arrival;
+
+
+    document.getElementById(
+        "delay"
+    ).textContent =
+        impact.delay_days + " days";
+
+
+    /* =========================
+       INVENTORY
+    ========================= */
+
+    document.getElementById(
+        "totalStock"
+    ).textContent =
+        impact.total_stock;
+
+
+    document.getElementById(
+        "totalOrdered"
+    ).textContent =
+        impact.total_ordered;
+
+
+    document.getElementById(
+        "remainingStock"
+    ).textContent =
+        impact.remaining_stock;
+
+
+    document.getElementById(
+        "shipmentQuantity"
+    ).textContent =
+        impact.delayed_shipment_quantity;
+
+
+    /* =========================
+       ORDERS
+    ========================= */
+
+    const table =
+        document.getElementById(
+            "ordersTable"
+        );
+
+
+    table.innerHTML = "";
+
+
+    if (
+        data.affected_orders.length === 0
+    ) {
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML =
+            "<td colspan='6' class='covered'>✓ No orders are currently at risk.</td>";
+
+
+        table.appendChild(row);
+
+    }
+
+    else {
+
+
+        data.affected_orders.forEach(
+            order => {
+
+
+                const row =
+                    document.createElement("tr");
+
+
+                let priorityClass =
+                    "priority-low";
+
+
+                if (
+                    order.priority === "High"
+                ) {
+
+                    priorityClass =
+                        "priority-high";
+
+                }
+
+                else if (
+                    order.priority === "Medium"
+                ) {
+
+                    priorityClass =
+                        "priority-medium";
+
+                }
+
+
+                row.innerHTML = `
+
+                    <td>
+                        <strong>
+                            ${order.order_id}
+                        </strong>
+                    </td>
+
+                    <td>
+                        ${order.customer}
+                    </td>
+
+                    <td>
+                        ${order.quantity}
+                    </td>
+
+                    <td>
+                        ${order.required_date}
+                    </td>
+
+                    <td>
+                        <span class="priority ${priorityClass}">
+                            ${order.priority}
+                        </span>
+                    </td>
+
+                    <td class="at-risk">
+                        ⚠ At Risk
+                    </td>
+
+                `;
+
+
+                table.appendChild(row);
+
+
+            }
+        );
+
+    }
+
+
+    /* =========================
+       RECOMMENDATION
+    ========================= */
+
+    document.getElementById(
+        "recommendation"
+    ).textContent =
+        data.recommendation;
+
+}
+
+
+</script>
+
+
+</body>
+
+</html>
+
